@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="select_setwepon">
+		<item>セット武器：なし</item>
+		<item>セット武器：２つ</item>
+		<item>セット武器：３つ</item>
+	</string-array>
+</resources>

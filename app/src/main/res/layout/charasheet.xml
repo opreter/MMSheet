@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/charasheet"
+	android:orientation="vertical"
+	>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+
+		<!-- キャラ名タイトル -->
+		<TextView
+			android:id="@+id/textView1"
+			android:layout_weight="1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:text="キャラ名"
+			android:textColor="@color/black"
+			android:textSize="20sp"
+			/>
+
+		<!-- 書き換え用ボタン -->
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:id="@+id/button_chara_name"
+			android:drawableBottom="@drawable/ic_baseline_edit_24"
+			android:layout_gravity="right"
+			/>
+	</LinearLayout>
+
+	<!-- キャラ名 -->
+	<TextView
+		android:id="@+id/mk_chara_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="0dp"
+		android:gravity="center_vertical"
+		android:textColor="@color/black"
+		android:textSize="30sp"
+		/>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/black"
+		/>
+
+	<!-- HP -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<!-- HP -->
+		<TextView
+			android:id="@+id/hp_count"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="0dp"
+			android:gravity="center_vertical"
+			android:text="HP：6"
+			android:textColor="@color/black"
+			android:textSize="20sp"
+			android:layout_weight="1"
+			/>
+
+		<!-- HP減算 -->
+		<Button
+			android:id="@+id/button_hp_dec"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:drawableBottom="@drawable/ic_baseline_exposure_neg_1_24"
+			android:layout_gravity="right"
+			/>
+
+		<!-- HP加算 -->
+		<Button
+			android:id="@+id/button_hp_inc"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:drawableBottom="@drawable/ic_baseline_exposure_plus_1_24"
+			android:layout_gravity="right"
+			/>
+
+		<!-- HPリセット -->
+		<Button
+			android:id="@+id/button_hp_reset"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:drawableBottom="@drawable/ic_baseline_refresh_24"
+			android:layout_gravity="right"
+			/>
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/black"
+		/>
+
+	<!-- SP -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<!-- SP -->
+		<TextView
+			android:id="@+id/sp_count"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:gravity="center_vertical"
+			android:text="SP：3"
+			android:textColor="@color/black"
+			android:textSize="20sp"
+			android:layout_weight="1"/>
+
+		<Button
+			android:id="@+id/button_sp_dec"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:drawableBottom="@drawable/ic_baseline_exposure_neg_1_24"
+			android:layout_gravity="right"/>
+
+		<Button
+			android:id="@+id/button_sp_inc"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:drawableBottom="@drawable/ic_baseline_exposure_plus_1_24"
+			android:layout_gravity="right"/>
+
+		<Button
+			android:id="@+id/button_sp_reset"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:drawableBottom="@drawable/ic_baseline_refresh_24"
+			android:layout_gravity="right"/>
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/black"
+		/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		>
+
+		<TextView
+			android:id="@+id/movepoint"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="0dp"
+			android:gravity="center_vertical"
+			android:text="移動力：4"
+			android:textColor="@color/black"
+			android:textSize="20sp"
+			android:layout_weight="1"/>
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@color/black"
+			/>
+
+		<TextView
+			android:id="@+id/mp_count"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="0dp"
+			android:gravity="center_vertical"
+			android:text="合計MP：0"
+			android:textColor="@color/black"
+			android:textSize="20sp"
+			android:layout_weight="1"/>
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/black"
+		/>
+
+	<!-- スクロールエリア -->
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:isScrollContainer="false"
+		android:id="@+id/scrollView">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<!-- 属性 -->
+			<include layout="@layout/attribute_list" />
+
+			<!-- 武器エリア -->
+			<LinearLayout
+				android:id="@+id/root1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/black"
+				/>
+
+			<!-- セット武器用スピナー -->
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				>
+
+				<Spinner
+					android:id="@+id/spinner_setwepon"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textColor="@color/black"
+					android:textSize="20sp"
+					android:entries="@array/select_setwepon" />
+
+				<View
+					android:layout_width="1dp"
+					android:layout_height="match_parent"
+					android:background="@color/black"
+					/>
+
+				<TextView
+					android:id="@+id/setwepon_mp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="0dp"
+					android:gravity="center_vertical"
+					android:text="MP：0"
+					android:textColor="@color/black"
+					android:textSize="20sp"
+					android:layout_weight="2"/>
+			</LinearLayout>
+
+			<!-- 装備品エリアタイトル -->
+			<TextView
+				android:id="@+id/textView_itemtitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="0dp"
+				android:gravity="center"
+				android:text="装備品"
+				android:textColor="@color/white"
+				android:background="@color/black"
+				android:textSize="20sp"
+				android:layout_weight="1"/>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical">
+
+				<!-- 追加ボタン -->
+				<Button
+					android:layout_weight="1"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/button_item_add"
+					android:text="追加"
+					android:drawableLeft="@drawable/ic_baseline_note_add_24" />
+
+				<!-- 削除ボタン -->
+				<Button
+					android:layout_weight="1"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/button_item_del"
+					android:text="削除"
+					android:drawableLeft="@drawable/ic_baseline_delete_24" />
+			</LinearLayout>
+
+			<!-- 装備品エリア -->
+			<LinearLayout
+				android:id="@+id/root2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			</LinearLayout>
+			<!--
+			<include layout="@layout/item_list" />
+			-->
+
+			<!-- 能力エリアタイトル -->
+			<TextView
+				android:id="@+id/textView_abttitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="0dp"
+				android:gravity="center"
+				android:text="技能／特殊能力"
+				android:textColor="@color/white"
+				android:background="@color/black"
+				android:textSize="20sp"
+				android:layout_weight="1"/>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical">
+
+				<!-- 追加ボタン -->
+				<Button
+					android:layout_weight="1"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/button_ability_add"
+					android:text="追加"
+					android:drawableLeft="@drawable/ic_baseline_note_add_24" />
+
+				<!-- 削除ボタン -->
+				<Button
+					android:layout_weight="1"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:text="削除"
+					android:id="@+id/button_ability_del"
+					android:drawableLeft="@drawable/ic_baseline_delete_24" />
+			</LinearLayout>
+
+			<!-- 能力エリア -->
+			<LinearLayout
+				android:id="@+id/root3"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			</LinearLayout>
+			<!--
+			<include layout="@layout/ability_list" />
+			-->
+
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>
