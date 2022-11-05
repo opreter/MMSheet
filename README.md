@@ -4,9 +4,9 @@
 キャラクターシートを、Androidアプリとしたものです。
 
 「めいどはんまー」については以下のWebページか、mixiのコミュニティページを
-参照してください。
-Webページ：http://maidhammer.mad.buttobi.net/
-mixiコミュニティ：https://mixi.jp/view_community.pl?id=727063
+参照してください。  
+Webページ：http://maidhammer.mad.buttobi.net/  
+mixiコミュニティ：https://mixi.jp/view_community.pl?id=727063  
 
 キャラクターシートの電子化、入力の簡略化を目的としたものであり、
 ルールブックそのものの電子化を目的としたものではありません。
