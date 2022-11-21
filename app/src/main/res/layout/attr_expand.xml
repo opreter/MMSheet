@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical"
-	>
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical">
 
 	<!--
 	<TextView
@@ -18,29 +18,40 @@
 		android:textSize="20sp" />
 	-->
 
-	<!--
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center_vertical"
 		android:orientation="horizontal">
-		-->
 
-		<!-- 属性 -->
-		<!--
-		<TextView
-			android:id="@+id/textView_att_name"
+		<LinearLayout
+			android:id="@+id/expandLayout_attr"
+			android:layout_weight="1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="属性："
-			android:textColor="@color/black"
-			android:textSize="20sp"
-			android:layout_weight="1"
-			/>
-			-->
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/textView_att_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="属性："
+				android:textColor="@color/black"
+				android:textSize="20sp"
+				android:layout_weight="1"
+				/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="▼　"
+				android:textColor="@color/black"
+				android:textSize="10sp"
+				android:layout_gravity="right"
+				/>
+		</LinearLayout>
 
 		<!-- 書き換え用ボタン -->
-		<!--
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="48dp"
@@ -50,40 +61,19 @@
 			android:layout_gravity="right"
 			/>
 	</LinearLayout>
-	-->
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="@color/black"
-		/>
-
-	<TextView
-		android:id="@+id/textView_att_mp"
+	<net.cachapa.expandablelayout.ExpandableLayout
+		android:id="@+id/expand_attr"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="0dp"
-		android:text="MP：0"
-		android:textColor="@color/black"
-		android:textSize="20sp"
-		android:gravity="center_vertical"
-		/>
+		app:el_duration="1000"
+		app:el_parallax="0.5"
+		app:el_expanded="false"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/expandLayout_attr">
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="@color/black"
-		/>
+		<include layout="@layout/attribute_list" />
 
-	<!-- 説明 -->
-	<TextView
-		android:id="@+id/textView_att_memo"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="0dp"
-		android:gravity="center_vertical"
-		android:text="効果："
-		android:textColor="@color/black"
-		android:textSize="20sp" />
+	</net.cachapa.expandablelayout.ExpandableLayout>
 
 </LinearLayout>

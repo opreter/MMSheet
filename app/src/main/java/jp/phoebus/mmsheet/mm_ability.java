@@ -158,8 +158,9 @@ public class mm_ability {
 	static public String getDispName(MM_CharaAbility mm_ability)
 	{
 		String str;
-		str = "名称：";
-		str += mm_ability.ability.name;
+		//str = "名称：";
+		//str += mm_ability.ability.name;
+		str = mm_ability.ability.name;
 		return str;
 	}
 

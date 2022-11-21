@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical">
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/black"
+		/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<LinearLayout
+			android:id="@+id/expandLayout_wepon"
+			android:layout_weight="1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<!-- 武器名 -->
+			<TextView
+				android:id="@+id/textView_wepon_name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text=""
+				android:textColor="@color/black"
+				android:textSize="20sp"
+				android:layout_weight="1"
+				/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="▼　"
+				android:textColor="@color/black"
+				android:textSize="10sp"
+				android:layout_gravity="right"
+				/>
+		</LinearLayout>
+
+		<!-- 書き換え用ボタン -->
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:layout_marginTop="0dp"
+			android:id="@+id/button_wepon"
+			android:drawableBottom="@drawable/ic_baseline_edit_24"
+			android:layout_gravity="right"
+			/>
+	</LinearLayout>
+
+	<net.cachapa.expandablelayout.ExpandableLayout
+		android:id="@+id/expand_wepon"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:el_duration="1000"
+		app:el_parallax="0.5"
+		app:el_expanded="false"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/expandLayout_wepon">
+
+		<include layout="@layout/wepon_list" />
+
+	</net.cachapa.expandablelayout.ExpandableLayout>
+
+</LinearLayout>

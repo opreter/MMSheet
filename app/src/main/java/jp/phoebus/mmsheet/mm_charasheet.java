@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,6 +45,22 @@ public class mm_charasheet {
 		mm_charadata.MM_CharaData	cdata;		// キャラデータ
 		String	tmppath;		// 一時保存パス
 		Uri uripath;			// 保存パス
+
+		ExpandableLayout expand_attr;
+		LinearLayout attrview;
+		boolean isSel_attr;
+
+		ExpandableLayout[] expand_wepon = new ExpandableLayout[3];
+		LinearLayout[] weponexview = new LinearLayout[3];
+		boolean[] isSel_wepon = new boolean[3];
+
+		ArrayList<ExpandableLayout> expand_item = new ArrayList<ExpandableLayout>();
+		ArrayList<LinearLayout> itemexview = new ArrayList<LinearLayout>();
+		ArrayList<Integer> isSel_Item = new ArrayList<Integer>();
+
+		ArrayList<ExpandableLayout> expand_ability = new ArrayList<ExpandableLayout>();
+		ArrayList<LinearLayout> abilityexview = new ArrayList<LinearLayout>();
+		ArrayList<Integer> isSel_ability = new ArrayList<Integer>();
 
 		MM_Sheet()
 		{
@@ -136,9 +154,9 @@ public class mm_charasheet {
 		String str;
 
 		// タイトル設定
-		TextView txa_0 = subView.findViewById(R.id.textView_wepon_title);
-		str = mm_wepon.getDispTitle(mm_cwepon.idx);
-		txa_0.setText(str);
+		//TextView txa_0 = subView.findViewById(R.id.textView_wepon_title);
+		//str = mm_wepon.getDispTitle(mm_cwepon.idx);
+		//txa_0.setText(str);
 
 		// 名称
 		TextView txa_1 = subView.findViewById(R.id.textView_wepon_name);
@@ -717,6 +735,9 @@ public class mm_charasheet {
 				// 登録
 				addItem(mm_sheet, idx, str);
 
+				// 折りたたみ再設定
+				setOnExpandProc(mm_sheet);
+
 				// 再表示
 				redisp(scrview, mm_sheet);
 
@@ -774,6 +795,9 @@ public class mm_charasheet {
 				delItem(mm_sheet, i);
 			}
 		}
+
+		// 折りたたみ再設定
+		setOnExpandProc(mm_sheet);
 
 		// 再表示
 		redisp(scrview, mm_sheet);
@@ -848,6 +872,9 @@ public class mm_charasheet {
 				// 登録
 				addAbility(mm_sheet, position);
 
+				// 折りたたみ再設定
+				setOnExpandProc(mm_sheet);
+
 				// 再表示
 				redisp(scrview, mm_sheet);
 
@@ -897,6 +924,9 @@ public class mm_charasheet {
 			}
 		}
 
+		// 折りたたみ再設定
+		setOnExpandProc(mm_sheet);
+
 		// 再表示
 		redisp(scrview, mm_sheet);
 
@@ -906,16 +936,28 @@ public class mm_charasheet {
 
 	/*-------------------------*/
 
+	static public void initattr(View scrview, MM_Sheet mm_sheet)
+	{
+		mm_sheet.expand_attr = scrview.findViewById(R.id.expand_attr);
+		mm_sheet.attrview = scrview.findViewById(R.id.expandLayout_attr);
+		mm_sheet.isSel_attr = false;
+	}
+
 	static public void addwepon(int ss, MM_Sheet mm_sheet) {
 
 		// Viewを生成して、rootViewへ登録
-		View subView = mm_sheet.inflater.inflate(R.layout.wepon_list, null);
+		//View subView = mm_sheet.inflater.inflate(R.layout.wepon_list, null);
+		View subView = mm_sheet.inflater.inflate(R.layout.wepon_expand, null);
 		mm_sheet.weponview.addView(subView, mm_sheet.weponview.getChildCount());
 
 		// 表示用subviewを保存
 		mm_sheet.cdata.cwepon[ss].subview = subView;
 
 		mm_sheet.cdata.cwepon[ss].idx = ss;
+
+		mm_sheet.expand_wepon[ss] = subView.findViewById(R.id.expand_wepon);
+		mm_sheet.weponexview[ss] = subView.findViewById(R.id.expandLayout_wepon);
+		mm_sheet.isSel_wepon[ss] = false;
 
 		// 一時保存
 		tmpsave(mm_sheet);
@@ -933,7 +975,8 @@ public class mm_charasheet {
 		wk.exname = str;
 
 		// Viewを生成して、rootViewへ登録
-		View subView = mm_sheet.inflater.inflate(R.layout.item_list, null);
+		//View subView = mm_sheet.inflater.inflate(R.layout.item_list, null);
+		View subView = mm_sheet.inflater.inflate(R.layout.item_expand, null);
 		mm_sheet.itemview.addView(subView, mm_sheet.itemview.getChildCount());
 
 		// View保存
@@ -966,7 +1009,8 @@ public class mm_charasheet {
 		mm_ability.setList(position, wk.ability);
 
 		// Viewを生成して、rootViewへ登録
-		View subView = mm_sheet.inflater.inflate(R.layout.ability_list, null);
+		//View subView = mm_sheet.inflater.inflate(R.layout.ability_list, null);
+		View subView = mm_sheet.inflater.inflate(R.layout.abili_expand, null);
 		mm_sheet.abilityview.addView(subView, mm_sheet.abilityview.getChildCount());
 
 		// View保存
@@ -1054,6 +1098,10 @@ public class mm_charasheet {
 			// ループは逆ループにして末尾から削除
 			delAbility(mm_sheet, i);
 		}
+
+		// 折りたたみ再設定(消去)
+		setOnExpandProc(mm_sheet);
+
 		mm_sheet.cdata.ability.clear();
 	}
 
@@ -1187,5 +1235,127 @@ public class mm_charasheet {
 		} catch(IOException ex){
 			return false;
 		}
+	}
+
+	/*------------------*/
+
+	// 属性エリアの開閉
+	static public void OnClickExpandAttr(View view, View scrview, MM_Sheet mm_sheet)
+	{
+		if(mm_sheet.isSel_attr){
+			mm_sheet.expand_attr.collapse();
+			mm_sheet.isSel_attr = false;
+		} else {
+			mm_sheet.expand_attr.expand();
+			mm_sheet.isSel_attr = true;
+		}
+	}
+
+	// 武装折りたたみ
+	static public void OnClickExpand_wepon(View scrview, MM_Sheet mm_sheet, int wsel)
+	{
+		if(mm_sheet.isSel_wepon[wsel]){
+			mm_sheet.expand_wepon[wsel].collapse();
+			mm_sheet.isSel_wepon[wsel] = false;
+		} else {
+			mm_sheet.expand_wepon[wsel].expand();
+			mm_sheet.isSel_wepon[wsel] = true;
+		}
+	}
+
+	// 装備品表示折りたたみ/展開(メイン)
+	static public void OnClickExpand_item(View view, MM_Sheet mm_sheet)
+	{
+		// 対象のViewを探す
+		for(int i = 0; i < mm_sheet.cdata.citem.size(); i++){
+			if(mm_sheet.itemexview.get(i).equals(view)){
+				// 対象Viewが見つかった
+				if(mm_sheet.isSel_Item.get(i) != 0){
+					mm_sheet.expand_item.get(i).collapse();
+					mm_sheet.isSel_Item.set(i,0);
+				} else {
+					mm_sheet.expand_item.get(i).expand();
+					mm_sheet.isSel_Item.set(i,1);
+				}
+			}
+		}
+	}
+
+	// 装備品表示折りたたみ/展開
+	static public void setExpand_item(MM_Sheet mm_sheet)
+	{
+		int	i;
+
+		mm_sheet.expand_item.clear();
+		mm_sheet.itemexview.clear();
+		mm_sheet.isSel_Item.clear();
+
+		for (i = 0; i < mm_sheet.cdata.citem.size(); i++){
+			View wks = mm_sheet.cdata.citem.get(i).subview;
+
+			ExpandableLayout wkex = wks.findViewById(R.id.expand_item);
+			mm_sheet.expand_item.add(wkex);
+			LinearLayout wkl = wks.findViewById(R.id.expandLayout_item);
+			mm_sheet.itemexview.add(wkl);
+			mm_sheet.isSel_Item.add(0);
+
+			wkl.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					OnClickExpand_item(view, mm_sheet);
+				}
+			});
+		}
+	}
+
+	// 装備品表示折りたたみ/展開(メイン)
+	static public void OnClickExpand_ability(View view, MM_Sheet mm_sheet)
+	{
+		// 対象のViewを探す
+		for(int i = 0; i < mm_sheet.cdata.ability.size(); i++){
+			if(mm_sheet.abilityexview.get(i).equals(view)){
+				// 対象Viewが見つかった
+				if(mm_sheet.isSel_ability.get(i) != 0){
+					mm_sheet.expand_ability.get(i).collapse();
+					mm_sheet.isSel_ability.set(i,0);
+				} else {
+					mm_sheet.expand_ability.get(i).expand();
+					mm_sheet.isSel_ability.set(i,1);
+				}
+			}
+		}
+	}
+
+	static public void setExpand_ability(MM_Sheet mm_sheet)
+	{
+		int i;
+
+		mm_sheet.expand_ability.clear();
+		mm_sheet.abilityexview.clear();
+		mm_sheet.isSel_ability.clear();
+
+		for(i = 0; i < mm_sheet.cdata.ability.size(); i++){
+			View wks = mm_sheet.cdata.ability.get(i).subview;
+
+			ExpandableLayout wkex = wks.findViewById(R.id.expand_ability);
+			mm_sheet.expand_ability.add(wkex);
+			LinearLayout wkl = wks.findViewById(R.id.expandLayout_ability);
+			mm_sheet.abilityexview.add(wkl);
+			mm_sheet.isSel_ability.add(0);
+
+			wkl.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					OnClickExpand_ability(view, mm_sheet);
+				}
+			});
+		}
+	}
+
+	// 折りたたみ処理登録
+	static public void setOnExpandProc(MM_Sheet mm_sheet)
+	{
+		setExpand_item(mm_sheet);
+		setExpand_ability(mm_sheet);
 	}
 }

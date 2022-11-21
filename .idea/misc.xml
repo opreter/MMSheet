@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/abili_expand.xml" value="0.13069908814589665" />
+        <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/attr_expand.xml" value="0.13069908814589665" />
+        <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/consttesy.xml" value="0.13069908814589665" />
         <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/content_main.xml" value="0.33" />
+        <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/item_expand.xml" value="0.13069908814589665" />
         <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/mm_wepon_entry.xml" value="0.33" />
+        <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/layout/wepon_expand.xml" value="0.13069908814589665" />
         <entry key="..\:/EOS/MMSHEET/MMSheet/app/src/main/res/menu/menu_main.xml" value="0.1359375" />
       </map>
     </option>

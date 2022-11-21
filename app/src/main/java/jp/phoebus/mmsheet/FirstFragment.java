@@ -3,12 +3,9 @@ package jp.phoebus.mmsheet;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,17 +16,10 @@ import android.view.ViewGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.navigation.fragment.NavHostFragment;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
 import jp.phoebus.mmsheet.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
@@ -45,6 +36,10 @@ public class FirstFragment extends Fragment {
 	private FragmentFirstBinding binding;
 	mm_charasheet.MM_Sheet MM_sheet;
 	private boolean initproc = false;
+
+	private boolean isSelect = false;
+	private ExpandableLayout expand_attr = null;
+	private View attrview;
 
 	@Override
 	public View onCreateView(
@@ -62,6 +57,9 @@ public class FirstFragment extends Fragment {
 		MM_sheet = new mm_charasheet.MM_Sheet();
 		MM_sheet.view = v;
 		MM_sheet.inflater = inflater;
+
+		// 属性エリア初期化
+		mm_charasheet.initattr(v, MM_sheet);
 
 		// 武器エリアView取得
 		MM_sheet.weponview = v.findViewById(R.id.root1);
@@ -86,6 +84,9 @@ public class FirstFragment extends Fragment {
 
 		// HP/SP読み込み
 		mm_charadata.load_playdata(requireContext(), 1, MM_sheet.cdata);
+
+		// 折りたたみ設定
+		mm_charasheet.setOnExpandProc(MM_sheet);
 
 		mm_charasheet.redisp(v, MM_sheet);
 
@@ -179,6 +180,14 @@ public class FirstFragment extends Fragment {
 			}
 		});
 
+		// 属性エリアの開閉
+		MM_sheet.attrview.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				mm_charasheet.OnClickExpandAttr(view, v, MM_sheet);
+			}
+		});
+
 		// 武装選択ダイアログ
 		Button button_w1 = (Button) MM_sheet.cdata.cwepon[0].subview.findViewById(R.id.button_wepon);
 		button_w1.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +195,13 @@ public class FirstFragment extends Fragment {
 			public void onClick(View view) {
 				mm_charasheet.OnClick_EditWepon(requireContext(),v , MM_sheet, 0);
 				mm_charadata.save_playdata(requireContext(), 1, MM_sheet.cdata);
+			}
+		});
+
+		MM_sheet.weponexview[0].setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view){
+				mm_charasheet.OnClickExpand_wepon(v, MM_sheet, 0);
 			}
 		});
 
@@ -199,6 +215,13 @@ public class FirstFragment extends Fragment {
 			}
 		});
 
+		MM_sheet.weponexview[1].setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view){
+				mm_charasheet.OnClickExpand_wepon(v, MM_sheet, 1);
+			}
+		});
+
 		// 武装選択ダイアログ
 		Button button_w3 = (Button) MM_sheet.cdata.cwepon[2].subview.findViewById(R.id.button_wepon);
 		button_w3.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +229,13 @@ public class FirstFragment extends Fragment {
 			public void onClick(View view) {
 				mm_charasheet.OnClick_EditWepon(requireContext(),v , MM_sheet, 2);
 				mm_charadata.save_playdata(requireContext(), 1, MM_sheet.cdata);
+			}
+		});
+
+		MM_sheet.weponexview[2].setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view){
+				mm_charasheet.OnClickExpand_wepon(v, MM_sheet, 2);
 			}
 		});
 
@@ -380,7 +410,7 @@ public class FirstFragment extends Fragment {
 			}
 		} else if (requestCode == 11000 && resultCode == RESULT_OK) {
 			if(resultData.getData() != null) {
-				// データをファイルから読み込む
+				// データを作成されたファイルに書き込む
 				Uri uri = resultData.getData();
 
 				try {
@@ -394,13 +424,17 @@ public class FirstFragment extends Fragment {
 					progressDialog.show();
 
 					// ファイルへ保存
-					if(mm_charasheet.load_main(isr, MM_sheet)){
+					if(!mm_charasheet.load_main(isr, MM_sheet)){
+						progressDialog.dismiss();
+						return;
 					}
 
 					// URIを保存
 					MM_sheet.uripath = uri;
 
 					progressDialog.dismiss();
+
+					mm_charasheet.setOnExpandProc(MM_sheet);
 
 					// 再表示
 					mm_charasheet.redisp(MM_sheet.view, MM_sheet);
